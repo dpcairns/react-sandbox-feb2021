@@ -11,7 +11,7 @@ function add(num1, num2) {
   return num1 + num2
 }
 
-const dogs = [
+const dogDataArray = [
   {
     name: 'spot',
     age: 3,
@@ -26,38 +26,49 @@ const dogs = [
   },
 ]
 
-class Dog extends React.Component {
+class DogComponent extends React.Component {
   render() {
     return <div>
-    <p>My name is {this.props.dog.name}</p>
-    <p>and i am {this.props.dog.age} years old</p>
+    <p>My name is {this.props.dogProp.name}</p>
+    <p>and i am {this.props.dogProp.age} years old</p>
   </div>
   }
 }
 
 export default class App extends React.Component {
   render() {
-    // const dogList = dogs.map(dog => <div>
+
+      // dogList is an array of Dog components
+      const dogList = 
+      // dogs is an array of dog objects with a name and age
+        dogDataArray.map(
+          // dog is a single dog object with a name and age
+          singleDogObject => 
+            // Dog is a react component
+              // dog is a prop name
+            <DogComponent dogProp={
+              // dog is the dog object from before that we're passing as a prop
+              singleDogObject
+            } />)
+                  
+        // const dogList = dogs.map(dog => <div>
     //     <p>My name is {dog.name}</p>
     //     <p>and i am {dog.age} years old</p>
     //   </div>
     // );
 
-    // dogList is an array of Dog components
-    const dogList = 
-      // dogs is an array of dog objects with a name and age
-      dogs.map(
-        // dog is a single dog object with a name and age
-        dog => 
-          // Dog is a react component
-            // dog is a prop name
-          <Dog dog={
-            // dog is the dog object from line 51 that we're passing as a prop
-            dog
-          } />)
-
-    console.log(dogList)
-    
+    // // dogList is an array of Dog components
+    // const dogList = 
+    //   // dogs is an array of dog objects with a name and age
+    //   dogs.map(
+    //     // dog is a single dog object with a name and age
+    //     dog => 
+    //       // Dog is a react component
+    //         // dog is a prop name
+    //       <Dog dog={
+    //         // dog is the dog object from line 51 that we're passing as a prop
+    //         dog
+    //       } />)
       return (
         <>
           { dogList }
