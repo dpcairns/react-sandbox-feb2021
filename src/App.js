@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import iceCreams from './ice-cream.js';
+import IceCream from './IceCream.js';
 
 // Import the necessary styles, or include them 
 export default class App extends React.Component {
@@ -21,10 +22,31 @@ export default class App extends React.Component {
      });
   }
 
-  render() {
+    // this will get called once when the component is defined
 
+
+  render() {
+      // this will get called whenever state of props changes
+      const filteredIceCreams = iceCreams.filter((iceCream) => {
+        // if there are no flavors selected, show all
+        if (!this.state.flavor) return true; // include this flavor
+
+        if (iceCream.category === this.state.flavor) return true; // include this flavor
+
+        return false; // don't include this flavor
+      });
+
+      const iceCreamNodes = filteredIceCreams.map(iceCream => 
+        <IceCream 
+          key={iceCream.name}
+          iceCream={iceCream} />);
+
+      console.log(iceCreamNodes)
       return (
         <>
+        <ul className="list">
+          { iceCreamNodes }
+        </ul>
         <form>
             Name
             {/* 1) tie the value of the input to the state */}
@@ -55,17 +77,6 @@ export default class App extends React.Component {
         <div>
           Flavor: {this.state.flavor}
         </div>
-        <ul className="list">
-          {
-            iceCreams.map(iceCream => <li 
-            key={iceCream.name}
-            className="cream">
-              <p>{iceCream.name}</p>
-              <p>{iceCream.category}</p>
-              <p>${iceCream.cost}</p>
-            </li>)
-          }
-        </ul>
 
         </>
     );
