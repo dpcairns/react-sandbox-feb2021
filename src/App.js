@@ -1,90 +1,31 @@
 import React from 'react';
 import './App.css';
-import style from  './App.module.css';
-import style2 from  './App2.module.css';
-import birdImage from './bird.jpeg';
-import MyCoolHeader from './MyCoolHeader.js';
-import MyAmazingArticle from './MyAmazingArticle.js';
-import MySpecialFooter from './MySpecialFooter.js';
 
-function add(num1, num2) {
-  return num1 + num2
-}
-
-const dogDataArray = [
-  {
-    name: 'spot',
-    age: 3,
-  },
-  {
-    name: 'jeep',
-    age: 2,
-  },
-  {
-    name: 'rover',
-    age: 1,
-  },
-]
-
-class DogComponent extends React.Component {
-  render() {
-    return <div>
-    <p>My name is {this.props.dogProp.name}</p>
-    <p>and i am {this.props.dogProp.age} years old</p>
-  </div>
-  }
-}
-
+// Import the necessary styles, or include them 
 export default class App extends React.Component {
+  state = {
+    // data model for the app
+    someNumber: 0,
+    doubleNumber: 0
+  }
+
+  increment = () => {
+    // what do  i want the next state of someNumber to be?
+    this.setState({ 
+      // key to set
+      someNumber: 
+      // value to set
+      this.state.someNumber + 1,
+    })
+  }
+  
   render() {
-
-      // dogList is an array of Dog components
-      const dogList = 
-      // dogs is an array of dog objects with a name and age
-        dogDataArray.map(
-          // dog is a single dog object with a name and age
-          singleDogObject => 
-            // Dog is a react component
-              // dog is a prop name
-            <DogComponent dogProp={
-              // dog is the dog object from before that we're passing as a prop
-              singleDogObject
-            } />)
-                  
-        // const dogList = dogs.map(dog => <div>
-    //     <p>My name is {dog.name}</p>
-    //     <p>and i am {dog.age} years old</p>
-    //   </div>
-    // );
-
-    // // dogList is an array of Dog components
-    // const dogList = 
-    //   // dogs is an array of dog objects with a name and age
-    //   dogs.map(
-    //     // dog is a single dog object with a name and age
-    //     dog => 
-    //       // Dog is a react component
-    //         // dog is a prop name
-    //       <Dog dog={
-    //         // dog is the dog object from line 51 that we're passing as a prop
-    //         dog
-    //       } />)
       return (
-        <>
-          { dogList }
-          <h1 className={style.article}>Time to click the legos together!</h1>
-            <MyCoolHeader 
-              name="dani" 
-              greeting="thanks" 
-              myCoolColor="lightgreen" />
-            <div className={style2.article}>Your sum is: {add(4, 8)}</div>
-            <MyAmazingArticle myCoolAwesomeImage={birdImage} />
-            <MySpecialFooter phone="345-456-5431" />
-            <MySpecialFooter phone="867-5309" />
-            <MySpecialFooter phone="9999999" />
-            <MySpecialFooter phone="333322211" />
-
-        </>
-      );
+        <div className="counter">
+          <div>My number: {this.state.someNumber}</div>
+          {/* on click, call this.increment */}
+          <button onClick={this.increment}>Increment</button>
+        </div>
+    );
   }
 }

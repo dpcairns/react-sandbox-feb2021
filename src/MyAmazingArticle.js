@@ -4,7 +4,7 @@ import coolImage from './internet-facts.jpg';
 export default class MyAmazingArticle extends React.Component {
     render() {
         return (
-            <div className="article">
+            <div className="farticle">
             I am the article!
             {/* we can import and use an image with a JS portal */}
             <img alt="internet" className="internet-image" src={coolImage} />
