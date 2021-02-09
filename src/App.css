@@ -2,3 +2,17 @@
 font-size: 20px;
 text-align: center;
 }
+
+li {
+    list-style: none;
+}
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cream {
+    padding: 10px;
+    border: solid 1px black;
+    margin: 5px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import iceCreams from './ice-cream.js';
 
 // Import the necessary styles, or include them 
 export default class App extends React.Component {
@@ -20,12 +21,7 @@ export default class App extends React.Component {
      });
   }
 
-  handleVIPClick = () => {
-    this.setState({ name: 'lady gaga' })
-  }
-
   render() {
-    console.log(this.state);
 
       return (
         <>
@@ -40,7 +36,7 @@ export default class App extends React.Component {
             Flavor
             <select
               value={this.state.flavor}
-              onChange={e => {
+              onChange={(e) => {
                 this.setState({
                   flavor: e.target.value
                 })
@@ -52,7 +48,25 @@ export default class App extends React.Component {
             </select>
             <button>Submit</button>
         </form>
-        <button onClick={this.handleVIPClick}>VIP</button>
+
+        <div>
+          Name: {this.state.name}
+        </div>
+        <div>
+          Flavor: {this.state.flavor}
+        </div>
+        <ul className="list">
+          {
+            iceCreams.map(iceCream => <li 
+            key={iceCream.name}
+            className="cream">
+              <p>{iceCream.name}</p>
+              <p>{iceCream.category}</p>
+              <p>${iceCream.cost}</p>
+            </li>)
+          }
+        </ul>
+
         </>
     );
   }
