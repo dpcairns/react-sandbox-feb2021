@@ -2,6 +2,7 @@
 
 export default [
     {
+        id: 4,
         name: 'vanilla bean',
         category: 'vanilla',
         cost: 2,

@@ -36,12 +36,12 @@ export default class App extends React.Component {
         return false; // don't include this flavor
       });
 
-      const iceCreamNodes = filteredIceCreams.map(iceCream => 
-        <IceCream 
-          key={iceCream.name}
-          iceCream={iceCream} />);
+      const iceCreamNodes = filteredIceCreams.map(iceCreamObject => 
+        <IceCream
+          key={iceCreamObject.name}
+          iceCreamProp={iceCreamObject} // passing props!
+          />);
 
-      console.log(iceCreamNodes)
       return (
         <>
         <ul className="list">
