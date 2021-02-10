@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import iceCreams from './ice-cream.js';
 import IceCreamList from './IceCreamList.js';
-
+import Dropdown from './Dropdown.js';
 // Import the necessary styles, or include them 
 export default class App extends React.Component {
   state = {
@@ -10,6 +10,14 @@ export default class App extends React.Component {
     flavor: '',
   }
   
+  // this is our debit card. it can change parent state and it can be passed down to children
+  handleFlavorChange = (e) => {
+    // this is the teller. it does the actual work
+    // this is like a statement? transaction list?
+    this.setState({
+      flavor: e.target.value
+    })
+  }
 
   render() {
       // this will get called whenever state of props changes
@@ -24,24 +32,15 @@ export default class App extends React.Component {
 
       return (
         <>
-          <IceCreamList filteredIceCreams={filteredIceCreams} />
-        <form>
-            Flavor
-            <select
-              value={this.state.flavor}
-              onChange={(e) => {
-                this.setState({
-                  flavor: e.target.value
-                })
-              }}
-            >
-              <option value="vanilla">Vanilla</option>
-              <option value="chocolate">Chocolate</option>
-              <option value="banana">Banana</option>
-            </select>
-            <button>Submit</button>
-        </form>
-
+          <IceCreamList 
+          filteredIceCreams={filteredIceCreams} 
+          />
+          Flavor
+          <Dropdown
+            flavor={this.state.flavor}
+            // passing the debit card
+            handleFlavorChange={this.handleFlavorChange}
+          />
         </>
     );
   }
