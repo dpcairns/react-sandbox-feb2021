@@ -4,12 +4,17 @@ export default class Dropdown extends Component {
     render() {
         return (
            <select
-            value={this.props.flavor}
-            onChange={this.props.handleFlavorChange}
+            value={this.props.currentValue}
+            onChange={this.props.handleChange}
           >
-                <option value="vanilla">Vanilla</option>
-                <option value="chocolate">Chocolate</option>
-                <option value="banana">Banana</option>
+                {
+                  // we are passed an array of options from the parent
+                  this.props.options.map(
+                    // for each list item
+                    listItem => 
+                    // we make an html tag using that list item
+                    <option value={listItem}> {listItem} </option>)
+                }
           </select> 
         )
     }

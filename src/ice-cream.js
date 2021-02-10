@@ -5,7 +5,7 @@ export default [
         id: 4,
         name: 'vanilla bean',
         category: 'vanilla',
-        cost: 2,
+        cost: 1,
     },
     {
         name: 'choco crunch',
@@ -20,11 +20,11 @@ export default [
     {
         name: 'tropical twist',
         category: 'banana',
-        cost: 2,
+        cost: 3,
     },
     {
         name: 'fudge swirl',
         category: 'chocolate',
-        cost: 2,
+        cost: 1,
     }
 ];

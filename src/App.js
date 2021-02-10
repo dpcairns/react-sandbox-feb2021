@@ -8,6 +8,7 @@ export default class App extends React.Component {
   state = {
     // 0) initialize some state
     flavor: '',
+    cost: '',
   }
   
   // this is our debit card. it can change parent state and it can be passed down to children
@@ -19,7 +20,16 @@ export default class App extends React.Component {
     })
   }
 
+  handleCostChange = (e) => {
+    // this is the teller. it does the actual work
+    // this is like a statement? transaction list?
+    this.setState({
+      cost: Number(e.target.value)
+    })
+  }
+
   render() {
+    console.log(this.state)
       // this will get called whenever state of props changes
       const filteredIceCreams = iceCreams.filter((iceCream) => {
         // if there are no flavors selected, show all
@@ -37,9 +47,17 @@ export default class App extends React.Component {
           />
           Flavor
           <Dropdown
-            flavor={this.state.flavor}
+            currentValue={this.state.flavor}
             // passing the debit card
-            handleFlavorChange={this.handleFlavorChange}
+            handleChange={this.handleFlavorChange}
+            options={['vanilla', 'chocolate', 'banana']}
+          />
+          Cost
+          <Dropdown
+            currentValue={this.state.cost}
+            // passing the debit card
+            handleChange={this.handleCostChange}
+            options={[1, 2, 3]}
           />
         </>
     );
