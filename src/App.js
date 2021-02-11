@@ -1,89 +1,35 @@
 import React from 'react';
 import './App.css';
-import style from  './App.module.css';
-import style2 from  './App2.module.css';
-import birdImage from './bird.jpeg';
-import MyCoolHeader from './MyCoolHeader.js';
-import MyAmazingArticle from './MyAmazingArticle.js';
-import MySpecialFooter from './MySpecialFooter.js';
-
-function add(num1, num2) {
-  return num1 + num2
-}
-
-const dogDataArray = [
-  {
-    name: 'spot',
-    age: 3,
-  },
-  {
-    name: 'jeep',
-    age: 2,
-  },
-  {
-    name: 'rover',
-    age: 1,
-  },
-]
-
-class DogComponent extends React.Component {
-  render() {
-    return <div>
-    <p>My name is {this.props.dogProp.name}</p>
-    <p>and i am {this.props.dogProp.age} years old</p>
-  </div>
-  }
-}
+import request from 'superagent';
 
 export default class App extends React.Component {
+  state = {
+    quotes: []
+  }
+
+  // our function is labeled async because it does asynchronous work inside -- it talks to some other computer on the internet
+  handleClick = async () => {
+    // log out the milliseconds since 1970
+    console.log(Date.now());
+    
+    // make a request to the futurama api
+    // i AWAIT this request so that JS knows to stop running until the response comes back
+    const data = await request.get('http://futuramaapi.herokuapp.com/api/quotes');
+
+    // log out the results of the request
+    console.log(data.body);
+
+    // long out milliseconds again to prove that time has passed
+    console.log(Date.now())
+
+  }
+
   render() {
-
-      // dogList is an array of Dog components
-      const dogList = 
-      // dogs is an array of dog objects with a name and age
-        dogDataArray.map(
-          // dog is a single dog object with a name and age
-          singleDogObject => 
-            // Dog is a react component
-              // dog is a prop name
-            <DogComponent dogProp={
-              // dog is the dog object from before that we're passing as a prop
-              singleDogObject
-            } />)
-                  
-        // const dogList = dogs.map(dog => <div>
-    //     <p>My name is {dog.name}</p>
-    //     <p>and i am {dog.age} years old</p>
-    //   </div>
-    // );
-
-    // // dogList is an array of Dog components
-    // const dogList = 
-    //   // dogs is an array of dog objects with a name and age
-    //   dogs.map(
-    //     // dog is a single dog object with a name and age
-    //     dog => 
-    //       // Dog is a react component
-    //         // dog is a prop name
-    //       <Dog dog={
-    //         // dog is the dog object from line 51 that we're passing as a prop
-    //         dog
-    //       } />)
       return (
         <>
-          { dogList }
-          <h1 className={style.article}>Time to click the legos together!</h1>
-            <MyCoolHeader 
-              name="dani" 
-              greeting="thanks" 
-              myCoolColor="lightgreen" />
-            <div className={style2.article}>Your sum is: {add(4, 8)}</div>
-            <MyAmazingArticle myCoolAwesomeImage={birdImage} />
-            <MySpecialFooter phone="345-456-5431" />
-            <MySpecialFooter phone="867-5309" />
-            <MySpecialFooter phone="9999999" />
-            <MySpecialFooter phone="333322211" />
-
+          <button onClick={this.handleClick}>
+              Load quotes!
+          </button>
         </>
       );
   }
