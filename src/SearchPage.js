@@ -6,7 +6,8 @@ import Spinner from './Spinner.js';
 export default class SearchPage extends React.Component {
   state = {
     quotes: [],
-    loading: false
+    loading: false,
+    sortBy: 'character',
   }
 
   // our function is labeled async because it does asynchronous work inside -- it talks to some other computer on the internet
@@ -39,10 +40,27 @@ export default class SearchPage extends React.Component {
      });
   }
 
+  handleChange = (e) => {
+    this.setState({
+      sortBy: e.target.value
+    })
+  }
+
   render() {
+      this.state.quotes.sort(
+          (a, b) => 
+            a[this.state.sortBy]
+              .localeCompare(b[this.state.sortBy])
+      );
+
       return (
         <>
         {/* if this.state.loading is true, show the spinner */}
+        Sort By
+          <select onChange={this.handleChange}>
+            <option value="character">character</option>
+            <option value="quote">quote</option>
+          </select>
           <button onClick={this.handleClick}>
               Load quotes!
           </button>

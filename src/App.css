@@ -8,7 +8,7 @@ img {
 }
 
 .selected {
-    background-color: magenta;
+    display: none;
 }
 
 header, footer {
