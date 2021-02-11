@@ -8,6 +8,7 @@ export default class SearchPage extends React.Component {
     quotes: [],
     loading: false,
     sortBy: 'character',
+    query: ''
   }
 
   // our function is labeled async because it does asynchronous work inside -- it talks to some other computer on the internet
@@ -46,26 +47,35 @@ export default class SearchPage extends React.Component {
     })
   }
 
+  handleInputChange = (e) => {
+    this.setState({
+      query: e.target.value,
+    });
+  }
+
   render() {
       this.state.quotes.sort(
           (a, b) => 
+          // we use brackets here because we don't know ahead of time what the user wants us to sort by. That will change every time the iuser selectss from the dropdown. When state changes, we will sort the data again. We use brackets to show that the property we're sorting by is dynamic
             a[this.state.sortBy]
               .localeCompare(b[this.state.sortBy])
       );
+
+      // lets only include in our final array quotations that have the user's query inside of them. So if the user typed 'hello', the array would include 'hello world' but not 'goobye world'.
+      const filteredQuotes = this.state.quotes.filter(quote => quote.quote.includes(this.state.query))
 
       return (
         <>
         {/* if this.state.loading is true, show the spinner */}
         Sort By
           <select onChange={this.handleChange}>
-            <option value="character">character</option>
             <option value="quote">quote</option>
+            <option value="character">character</option>
           </select>
-          <button onClick={this.handleClick}>
-              Load quotes!
-          </button>
+          <input onChange={this.handleInputChange}/>
           {this.state.loading && <Spinner />}
-          {this.state.quotes.map(quote => <div key={quote.quote}>
+          {/* we now only want to display quotes after they have been filtered */}
+          {filteredQuotes.map(quote => <div key={quote.quote}>
             <p>{quote.character}</p>
             <img src={quote.image} alt="character" />
             <p>{quote.quote}</p>
