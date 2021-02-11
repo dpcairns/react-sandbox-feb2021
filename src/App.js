@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import request from 'superagent';
 import Spinner from './Spinner.js';
+
 export default class App extends React.Component {
   state = {
     quotes: [],
@@ -14,7 +15,10 @@ export default class App extends React.Component {
     console.log(Date.now());
   
     // this is a good time to launch a loading spinner
-    this.setState({ loading: true });
+    this.setState({ 
+      loading: true,
+      quotes: []
+     });
 
     // make a request to the futurama api
     // i AWAIT this request so that JS knows to stop running until the response comes back
@@ -23,12 +27,16 @@ export default class App extends React.Component {
     const data = await request.get('http://futuramaapi.herokuapp.com/api/quotes');
     // this code doesn't execute until the promise is RESOLVED
 
-    // this is a good time to make the loading spinner go away
-    this.setState({ loading: false });
-
-
     // log out the results of the request
     console.log(data.body);
+
+    
+    // this is a good time to make the loading spinner go away
+    this.setState({ 
+      loading: false,
+      quotes: data.body
+     });
+
 
     // long out milliseconds again to prove that time has passed
     console.log(Date.now())  
@@ -42,6 +50,11 @@ export default class App extends React.Component {
               Load quotes!
           </button>
           {this.state.loading && <Spinner />}
+          {this.state.quotes.map(quote => <div>
+            <p>{quote.character}</p>
+            <img src={quote.image} alt="character" />
+            <p>{quote.quote}</p>
+          </div>)}
         </>
       );
   }

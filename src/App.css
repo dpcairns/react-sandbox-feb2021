@@ -1,3 +1,8 @@
 .article {
     background-color: forestgreen;
 }
+
+img {
+    width: 100px;
+    height: 100px
+}
