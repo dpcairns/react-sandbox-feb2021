@@ -6,3 +6,13 @@ img {
     width: 100px;
     height: 100px
 }
+
+.selected {
+    background-color: magenta;
+}
+
+header, footer {
+    height: 70px;
+    background-color: pink;
+    text-align: right;
+}
