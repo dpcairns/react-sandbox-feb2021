@@ -2,13 +2,20 @@ import React from 'react';
 import './App.css';
 import request from 'superagent';
 import Spinner from './Spinner.js';
-
+import RadioList from './RadioList.js';
+const typesArray = [
+  'fire', 
+  'ice', 
+  'water', 
+  'heart'
+]
 export default class SearchPage extends React.Component {
   state = {
     quotes: [],
     loading: false,
     sortBy: 'character',
-    query: ''
+    query: '',
+    radio: '',
   }
 
   // our function is labeled async because it does asynchronous work inside -- it talks to some other computer on the internet
@@ -78,30 +85,12 @@ export default class SearchPage extends React.Component {
             <option value="character">character</option>
           </select>
           <input onChange={this.handleInputChange} />
-          <input
-          onChange={this.handleRadio}
-          type="radio"
-          name="type"
-          value="fire" 
-          checked={this.state.radio === "fire"}/>
-          <input
-          onChange={this.handleRadio}
-          type="radio"
-          name="type"
-          value="water" 
-          checked={this.state.radio === "water"}/>
-          <input
-          onChange={this.handleRadio}
-          type="radio"
-          name="type"
-          value="ice"  
-          checked={this.state.radio === "ice"}/>
-          <input
-          onChange={this.handleRadio}
-          type="radio"
-          name="type"
-          value="heart" 
-          checked={this.state.radio === "heart"} />
+
+          <RadioList 
+            radio={this.state.radio} 
+            handleRadio={this.handleRadio} 
+            options={typesArray} />
+
           {this.state.loading && <Spinner />}
           {/* we now only want to display quotes after they have been filtered */}
           {filteredQuotes.map(quote => <div key={quote.quote}>
