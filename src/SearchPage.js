@@ -19,10 +19,9 @@ export default class SearchPage extends React.Component {
     console.log('the user clicked search!', this.state.query)
     
     this.setState({ loading: true });
-    
+
     // we AWAITED a PROMISE
     const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
-
 
     this.setState({ 
       loading: false,
@@ -55,10 +54,11 @@ export default class SearchPage extends React.Component {
         <h1>All our pokemon are SERVER-SIDE</h1>
         <div>
           {/* if statements don't work in JSX. Therefore, we have to use this weird "short circuit" syntax to conditionally render the spinner. This says: if this.state.loading is true, render the Spinner component */}
-          { this.state.loading && <Spinner /> }
           {
-            // for each poke in pokemon
-            this.state.pokemon.map(poke => 
+            // this ternary says: if this.state.loading is true, load the spinner. Otherwise, map over and show the pokemon.
+            this.state.loading 
+            ? <Spinner />
+            : this.state.pokemon.map(poke => 
             <div key={poke.pokemon}>
               <div>
               <img src={poke.url_image} alt="poke" />
