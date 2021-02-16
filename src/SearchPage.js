@@ -53,7 +53,12 @@ export default class SearchPage extends React.Component {
     });
   }
 
+  handleRadio = (e) => this.setState({ radio: e.target.value })
+
   render() {
+      // cool zone
+      // out last change to log things out and munge/sort/filter data
+      
       this.state.quotes.sort(
           (a, b) => 
           // we use brackets here because we don't know ahead of time what the user wants us to sort by. That will change every time the iuser selectss from the dropdown. When state changes, we will sort the data again. We use brackets to show that the property we're sorting by is dynamic
@@ -72,7 +77,31 @@ export default class SearchPage extends React.Component {
             <option value="quote">quote</option>
             <option value="character">character</option>
           </select>
-          <input onChange={this.handleInputChange}/>
+          <input onChange={this.handleInputChange} />
+          <input
+          onChange={this.handleRadio}
+          type="radio"
+          name="type"
+          value="fire" 
+          checked={this.state.radio === "fire"}/>
+          <input
+          onChange={this.handleRadio}
+          type="radio"
+          name="type"
+          value="water" 
+          checked={this.state.radio === "water"}/>
+          <input
+          onChange={this.handleRadio}
+          type="radio"
+          name="type"
+          value="ice"  
+          checked={this.state.radio === "ice"}/>
+          <input
+          onChange={this.handleRadio}
+          type="radio"
+          name="type"
+          value="heart" 
+          checked={this.state.radio === "heart"} />
           {this.state.loading && <Spinner />}
           {/* we now only want to display quotes after they have been filtered */}
           {filteredQuotes.map(quote => <div key={quote.quote}>
