@@ -10,6 +10,12 @@ export default class SearchPage extends React.Component {
 
   // what do we want to happen on load in this app?
   componentDidMount = async () => {
+    await this.fetchPokemon();
+  }
+
+  fetchPokemon = async () => {
+    console.log('the user clicked search!', this.state.query)
+    // we AWAITED a PROMISE
     const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
 
     // we logged out the results of our "Hitting the endpoint"
@@ -21,15 +27,7 @@ export default class SearchPage extends React.Component {
 
   // we labeled our function ASYNCHRONOUS
   handleClick = async () => {
-    console.log('the user clicked search!', this.state.query)
-    // we AWAITED a PROMISE
-    const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
-
-    // we logged out the results of our "Hitting the endpoint"
-
-    this.setState({ 
-      pokemon: data.body.results,
-    });
+    await this.fetchPokemon();
   }
 
   handleQueryChange = async (e) => {
