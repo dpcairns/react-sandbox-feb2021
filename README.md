@@ -5,6 +5,7 @@
 3) Whenever props or state change, that component's render method is (usually) called again. This automagically updates the DOM.
 4) If you want something to change on the screen, update state. That will trigger the DOM update. Stop thinking in terms of mutating textContent. State change is where the action happens.
 5) React is a plinko board. The data starts and the top and flows to the bottom, triggering rerenders along the way.
+6) If you want to list things on the page, use MAP on an array!
 
 ## To deploy
 
