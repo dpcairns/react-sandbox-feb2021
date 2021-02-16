@@ -1,4 +1,5 @@
 import React from 'react';
+import request from 'superagent';
 import './App.css';
 
 export default class SearchPage extends React.Component {
@@ -6,22 +7,19 @@ export default class SearchPage extends React.Component {
     pokemon: []
   }
 
-  handleClick = () => {
+  // we labeled our function ASYNCHRONOUS
+  handleClick = async () => {
+    // we AWAITED a PROMISE
+    const data = await request.get('https://pokedex-alchemy.herokuapp.com/api/pokedex');
+
+    // we logged out the results of our "Hitting the endpoint"
+    console.log('=============================\n')
+    console.log('|| data', data.body.results)
+    console.log('\n=============================')
+
     this.setState({ 
-      pokemon: 
-        [
-          {
-            pokemon:'charizard',
-            type_1: 'fire',
-            url_image:'http://placekitten.com/300/300'
-          },
-          {
-            pokemon:'bulbasaur',
-            type_1:'plant',
-            url_image:'http://placekitten.com/200/200',
-          },
-        ]
-     })
+      pokemon: data.body.results,
+    })
   }
 
   render() {
