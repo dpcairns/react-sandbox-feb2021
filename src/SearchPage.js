@@ -1,11 +1,13 @@
 import React from 'react';
 import request from 'superagent';
 import './App.css';
+import Spinner from './Spinner.js';
 
 export default class SearchPage extends React.Component {
   state = {
     pokemon: [],
     query: '',
+    loading: false,
   }
 
   // what do we want to happen on load in this app?
@@ -15,12 +17,15 @@ export default class SearchPage extends React.Component {
 
   fetchPokemon = async () => {
     console.log('the user clicked search!', this.state.query)
+    
+    this.setState({ loading: true });
+    
     // we AWAITED a PROMISE
     const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
 
-    // we logged out the results of our "Hitting the endpoint"
 
     this.setState({ 
+      loading: false,
       pokemon: data.body.results,
     });
   }
@@ -49,6 +54,8 @@ export default class SearchPage extends React.Component {
         <button onClick={this.handleClick}>Go!</button>
         <h1>All our pokemon are SERVER-SIDE</h1>
         <div>
+          {/* if statements don't work in JSX. Therefore, we have to use this weird "short circuit" syntax to conditionally render the spinner. This says: if this.state.loading is true, render the Spinner component */}
+          { this.state.loading && <Spinner /> }
           {
             // for each poke in pokemon
             this.state.pokemon.map(poke => 
