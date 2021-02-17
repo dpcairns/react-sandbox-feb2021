@@ -2,10 +2,10 @@ import React from 'react';
 import request from 'superagent';
 import './App.css';
 import Spinner from './Spinner.js';
-
+import PokeList from './PokeList.js'
 export default class SearchPage extends React.Component {
   state = {
-    pokemon: [],
+    pokemonData: [],
     query: '',
     loading: false,
   }
@@ -21,7 +21,7 @@ export default class SearchPage extends React.Component {
     this.setState({ loading: true });
 
     // we AWAITED a PROMISE
-    const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
+    const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}&sort=${this.state.sortBy}&direction=${this.state.sortDirection}`);
 
     this.setState({ 
       loading: false,
@@ -40,9 +40,16 @@ export default class SearchPage extends React.Component {
       query: e.target.value,
      });
   }
+  
 
   render() {
+    const {
+      pokemonData,
+      loading,
+    } = this.state;
+    
       // we can still do sorting, filtering here. it will happen whenever state changes
+      // do anything that you want to happen on every single render
       return (
         <>
         <label>
@@ -54,17 +61,10 @@ export default class SearchPage extends React.Component {
         <h1>All our pokemon are SERVER-SIDE</h1>
         <div>
           {/* if statements don't work in JSX. Therefore, we have to use this weird "short circuit" syntax to conditionally render the spinner. This says: if this.state.loading is true, render the Spinner component */}
-          {
-            // this ternary says: if this.state.loading is true, load the spinner. Otherwise, map over and show the pokemon.
-            this.state.loading 
-            ? <Spinner />
-            : this.state.pokemon.map(poke => 
-            <div key={poke.pokemon}>
-              <div>
-              <img src={poke.url_image} alt="poke" />
-              </div>
-              {poke.pokemon} : {poke.type_1}
-            </div>)
+          { loading 
+          ? <Spinner />
+          : <PokeList pokemonData={pokemonData} />
+          
           }
         </div>
        </>
