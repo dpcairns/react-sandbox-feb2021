@@ -8,6 +8,7 @@ import {
 import SearchPage from './SearchPage.js';
 import HomePage from './HomePage.js';
 import Header from './Header.js';
+import DetailPage from './DetailPage.js';
 
 export default class App extends Component {
     render() {
@@ -19,12 +20,17 @@ export default class App extends Component {
                         <Route 
                             path="/" 
                             exact
-                            render={(routerProps) => <HomePage {...routerProps} />} 
+                            component={HomePage} 
                         />
                         <Route 
-                            path="/search" 
+                            path="/pokemon" 
                             exact
-                            render={(routerProps) => <SearchPage {...routerProps} />} 
+                            component={SearchPage} 
+                        />                        
+                        <Route 
+                            path="/pokemon/:pokemonName" 
+                            exact
+                            component={DetailPage} 
                         />
                     </Switch>
                 </Router>

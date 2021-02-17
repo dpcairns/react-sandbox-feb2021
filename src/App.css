@@ -16,3 +16,12 @@ header, footer {
     background-color: pink;
     text-align: right;
 }
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.list div {
+    margin: 10px
+}

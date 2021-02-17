@@ -21,11 +21,14 @@ export default class SearchPage extends React.Component {
     this.setState({ loading: true });
 
     // we AWAITED a PROMISE
-    const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}&sort=${this.state.sortBy}&direction=${this.state.sortDirection}`);
+    const data = await request.get(`https://pokedex-alchemy.herokuapp.com/api/pokedex?pokemon=${this.state.query}`);
 
+    console.log('=============================\n')
+    console.log('|| data.body.results', data.body.results)
+    console.log('\n=============================')
     this.setState({ 
       loading: false,
-      pokemon: data.body.results,
+      pokemonData: data.body.results,
     });
   }
 
@@ -40,7 +43,6 @@ export default class SearchPage extends React.Component {
       query: e.target.value,
      });
   }
-  
 
   render() {
     const {
@@ -59,12 +61,11 @@ export default class SearchPage extends React.Component {
 
         <button onClick={this.handleClick}>Go!</button>
         <h1>All our pokemon are SERVER-SIDE</h1>
-        <div>
+        <div className="list">
           {/* if statements don't work in JSX. Therefore, we have to use this weird "short circuit" syntax to conditionally render the spinner. This says: if this.state.loading is true, render the Spinner component */}
           { loading 
-          ? <Spinner />
-          : <PokeList pokemonData={pokemonData} />
-          
+            ? <Spinner />
+            : <PokeList pokemonData={pokemonData} />
           }
         </div>
        </>

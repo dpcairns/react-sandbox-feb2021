@@ -9,14 +9,14 @@ export default withRouter(class Header extends Component {
                 Home
                 </NavLink>
             {
-                this.props.location.pathname !== '/search' 
-                    && <NavLink exact activeClassName="selected" to="/search">
+                this.props.location.pathname !== '/pokemon' 
+                    && <NavLink exact activeClassName="selected" to="/pokemon">
                     Search
                 </NavLink>
             }
-            {/* if the page we're on happens to be the search page, also render this link */}
+            {/* if the page we're on happens to be the pokemon page, also render this link */}
             {
-               this.props.location.pathname === '/search' && <a href="https://google.com">Google</a>
+               this.props.location.pathname === '/pokemon' && <a href="https://google.com">Google</a>
             }
         </header>
         )
